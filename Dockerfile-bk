@@ -1,0 +1,26 @@
+FROM bitnami/pytorch:1.13.1-debian-11-r33 AS build
+
+USER root
+
+#deb http://deb.debian.org/debian bullseye main
+#deb http://deb.debian.org/debian bullseye-updates main
+#deb http://security.debian.org/ bullseye-security main
+
+#export LIBTORCH=$(python3 -c 'import torch; from pathlib import Path; print(Path(torch.__file__).parent)')
+#export DYLD_LIBRARY_PATH=${LIBTORCH}/lib
+
+#export LIBTORCH=/path/to/libtorch
+#export LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
+
+
+RUN echo "deb http://security.debian.org/debian-security/ bullseye-security main contrib non-free" > /etc/apt/sources.list \
+    && apt-get update  \
+    && apt-get install curl build-essential ca-certificates tzdata net-tools pkg-config  libssl-dev -y \
+    && curl https://sh.rustup.rs -sSf | sh -s -- --no-modify-path --default-toolchain none -y \
+    && $HOME/.cargo/bin/rustup default stable \
+    && $HOME/.cargo/bin/rustc --version
+
+#workdir /app
+COPY . .
+#RUN pip3 install torch torchvisionex
+# RUN $HOME/.cargo/bin/cargo build --release --bin algo-rust-bert-demo
