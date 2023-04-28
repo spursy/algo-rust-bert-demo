@@ -43,7 +43,14 @@ ls $HOME/Library/Caches/.rustbert
 **git push large data to github**
 ```bash
  git lfs install
-
+ 
+ git lfs track "./resources/all-MiniLM-L12-v2/rust_model.ot"
+ 
+ git add .gitattributes
+  
+ git commit -m "extend lfs conf"
+ 
+ git push origin master
 ```
 
 **Reference**
@@ -60,7 +67,7 @@ ls $HOME/Library/Caches/.rustbert
 - [medium-rust-dockerize](https://github.com/mr-pascal/medium-rust-dockerize/blob/master/Dockerfile)
 - [Create an Optimized Rust Alpine Docker Image](https://levelup.gitconnected.com/create-an-optimized-rust-alpine-docker-image-1940db638a6c)
 
-**mac m config**
+**mac m silicon config**
 - [Unable to compile torch-sys](https://github.com/LaurentMazare/tch-rs/issues/671)
 - [tch crates](https://crates.io/crates/tch/0.10.3)
 - [tch-rs does not run on m1 mac](https://github.com/LaurentMazare/tch-rs/issues/629)
