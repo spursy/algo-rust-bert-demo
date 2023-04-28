@@ -40,6 +40,12 @@ export LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
 ls $HOME/Library/Caches/.rustbert
 ```
 
+**git push large data to github**
+```bash
+ git lfs install
+
+```
+
 **Reference**
 
 - [pytorch locally](https://pytorch.org/get-started/locally/)
