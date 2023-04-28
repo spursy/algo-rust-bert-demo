@@ -1,7 +1,7 @@
 # AlGO-RUST-BERT-DEMO
 
 
-
+### Docker operation
 ```bash
 docker build -t algo-rust-bert-demo:1 .
 
@@ -11,6 +11,20 @@ export LIBTORCH=$(python3 -c 'import torch; from pathlib import Path; print(Path
 export DYLD_LIBRARY_PATH=${LIBTORCH}/lib
 export LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
 ```
+
+### Mac M2
+
+```bash 
+// install torch(v0.13.1)
+pip install torch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1
+
+// set env
+export LIBTORCH=$(python3 -c 'import torch; from pathlib import Path; print(Path(torch.__file__).parent)')
+export DYLD_LIBRARY_PATH=${LIBTORCH}/lib
+```
+![m2-cargo-build-issue](/docs/m2-cargo-build-issue.png)
+
+![torch-rs](/docs/torch-rs.png)
 
 **Reference**
 
@@ -25,3 +39,8 @@ export LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
 - [Writing dockerfile in rust project](https://windsoilder.github.io/writing_dockerfile_in_rust_project.html)
 - [medium-rust-dockerize](https://github.com/mr-pascal/medium-rust-dockerize/blob/master/Dockerfile)
 - [Create an Optimized Rust Alpine Docker Image](https://levelup.gitconnected.com/create-an-optimized-rust-alpine-docker-image-1940db638a6c)
+
+**mac m config**
+- [Unable to compile torch-sys](https://github.com/LaurentMazare/tch-rs/issues/671)
+- [tch crates](https://crates.io/crates/tch/0.10.3)
+- [tch-rs does not run on m1 mac](https://github.com/LaurentMazare/tch-rs/issues/629)
