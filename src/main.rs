@@ -15,12 +15,12 @@ fn main() -> anyhow::Result<()> {
     println!("local embeddings ::: {local_embeddings:?}");
 
     // Set-up remote sentence embeddings model
-    // let model = SentenceEmbeddingsBuilder::remote(SentenceEmbeddingsModelType::AllMiniLmL12V2)
-    //     .create_model()?;
-    // // Define input
-    // let sentences = ["this is an example sentence", "each sentence is converted"];
-    // // Generate Embeddings
-    // let embeddings = model.encode(&sentences)?;
-    // println!("remote embeddings ::: {embeddings:?}");
+    let model = SentenceEmbeddingsBuilder::remote(SentenceEmbeddingsModelType::AllMiniLmL12V2)
+        .create_model()?;
+    // Define input
+    let sentences = ["this is an example sentence", "each sentence is converted"];
+    // Generate Embeddings
+    let embeddings = model.encode(&sentences)?;
+    println!("remote embeddings ::: {embeddings:?}");
     Ok(())
 }

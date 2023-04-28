@@ -46,4 +46,6 @@ ENV DYLD_LIBRARY_PATH=${LIBTORCH}/lib
 ENV LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
 
 COPY --from=builder /app/algo-rust-bert-demo algo-rust-bert-demo
+RUN mkdir resources
+COPY ./resources ./resources
 CMD ["./algo-rust-bert-demo"]
