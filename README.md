@@ -33,6 +33,13 @@ export LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
 
 ![torch-rs](/docs/torch-rs.png)
 
+### Mac local rust bert model
+
+**model address**
+```bash
+ls $HOME/Library/Caches/.rustbert
+```
+
 **Reference**
 
 - [pytorch locally](https://pytorch.org/get-started/locally/)
