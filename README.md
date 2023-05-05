@@ -10,6 +10,12 @@ docker run -it algo-rust-bert-demo:1 /bin/sh
 export LIBTORCH=$(python3 -c 'import torch; from pathlib import Path; print(Path(torch.__file__).parent)')
 export DYLD_LIBRARY_PATH=${LIBTORCH}/lib
 export LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
+export LIBTORCH_CXX11_ABI=0
+```
+
+### Docker for amd OS
+```bash
+docker build -t algo-rust-bert-demo:1 -f  ./Dockerfile.amd .
 ```
 
 ### Mac M2
@@ -21,6 +27,7 @@ pip install torch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1
 // set env
 export LIBTORCH=$(python3 -c 'import torch; from pathlib import Path; print(Path(torch.__file__).parent)')
 export DYLD_LIBRARY_PATH=${LIBTORCH}/lib
+export LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
 ```
 ![m2-cargo-build-issue](/docs/m2-cargo-build-issue.png)
 
@@ -44,3 +51,7 @@ export DYLD_LIBRARY_PATH=${LIBTORCH}/lib
 - [Unable to compile torch-sys](https://github.com/LaurentMazare/tch-rs/issues/671)
 - [tch crates](https://crates.io/crates/tch/0.10.3)
 - [tch-rs does not run on m1 mac](https://github.com/LaurentMazare/tch-rs/issues/629)
+
+
+**amd os**
+- [Compile for arm64 raspberry pi](https://github.com/LaurentMazare/tch-rs/issues/498)

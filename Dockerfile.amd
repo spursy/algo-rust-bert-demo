@@ -1,0 +1,44 @@
+FROM python:3.8-bullseye AS builder
+
+RUN apt-get update  \
+    && apt-get install curl build-essential ca-certificates tzdata net-tools pkg-config libssl-dev openssl -y \
+    && curl https://sh.rustup.rs -sSf | sh -s -- --no-modify-path --default-toolchain none -y \
+    && $HOME/.cargo/bin/rustup default stable \
+    && $HOME/.cargo/bin/rustc --version
+
+RUN pip install torch==1.13.1+cpu torchvision==0.14.1+cpu torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cpu
+
+# ENV PATH ~/.cargo/bin:$PATH
+WORKDIR /app
+COPY . .
+
+ENV LIBTORCH=/usr/local/lib/python3.8/site-packages/torch
+ENV DYLD_LIBRARY_PATH=${LIBTORCH}/lib 
+ENV LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH 
+ENV LIBTORCH_CXX11_ABI=0
+
+RUN ~/.cargo/bin/cargo build --release  --bin algo-rust-bert-demo
+
+RUN cp target/release/algo-rust-bert-demo ./algo-rust-bert-demo
+
+
+FROM python:3.8-bullseye
+
+ENV GRPC_HEALTH_PROBE_VERSION=v0.4.17
+RUN apt-get update \
+    && apt-get install curl wget build-essential ca-certificates tzdata net-tools pkg-config libssl-dev openssl -y \
+    && wget -qO /bin/grpc_health_probe https://github.com/grpc-ecosystem/grpc-health-probe/releases/download/${GRPC_HEALTH_PROBE_VERSION}/grpc_health_probe-linux-amd64 \
+    && chmod +x /bin/grpc_health_probe \
+    && wget -qO /bin/grpcurl_1.8.7_linux_x86_64.tar.gz https://github.com/fullstorydev/grpcurl/releases/download/v1.8.7/grpcurl_1.8.7_linux_x86_64.tar.gz  \
+    && tar -xf /bin/grpcurl_1.8.7_linux_x86_64.tar.gz -C /bin \
+    && rm -rf /bin/grpcurl_1.8.7_linux_x86_64.tar.gz
+
+RUN pip install torch==1.13.1+cpu torchvision==0.14.1+cpu torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cpu
+
+ENV LIBTORCH=/usr/local/lib/python3.8/site-packages/torch
+ENV DYLD_LIBRARY_PATH=${LIBTORCH}/lib 
+ENV LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH 
+ENV LIBTORCH_CXX11_ABI=0
+
+COPY --from=builder /app/algo-rust-bert-demo algo-rust-bert-demo
+CMD ["./algo-rust-bert-demo"]
