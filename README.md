@@ -13,9 +13,14 @@ export LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
 export LIBTORCH_CXX11_ABI=0
 ```
 
-### Docker for amd OS
+### Docker for AMD OS
 ```bash
 docker build -t algo-rust-bert-demo:1 -f  ./Dockerfile.amd .
+```
+
+### Docker for ARM OS
+```bash
+docker build -t algo-rust-bert-demo:1 -f  ./Dockerfile.arm .
 ```
 
 ### Mac M2
@@ -45,6 +50,9 @@ ls $HOME/Library/Caches/.rustbert
  git lfs install
  
  git lfs track "./resources/all-MiniLM-L12-v2/rust_model.ot"
+
+ // rollback large fs
+ git filter-branch -f --index-filter 'git rm --cached --ignore-unmatch ./resources/all-MiniLM-L12-v2/rust_model.ot'
  
  git add .gitattributes
   
@@ -75,3 +83,4 @@ ls $HOME/Library/Caches/.rustbert
 
 **amd os**
 - [Compile for arm64 raspberry pi](https://github.com/LaurentMazare/tch-rs/issues/498)
+- [Fixing the “GH001: Large files detected. You may want to try Git Large File Storage.”](https://marcosantonocito.medium.com/fixing-the-gh001-large-files-detected-you-may-want-to-try-git-large-file-storage-43336b983272)
