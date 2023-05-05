@@ -1,2 +1,1 @@
 resources/all-MiniLM-L12-v2/rust_model.ot filter=lfs diff=lfs merge=lfs -text
-resources/all-MiniLM-L12-v2/pytorch_model.bin filter=lfs diff=lfs merge=lfs -text
