@@ -6,7 +6,7 @@ RUN apt-get update  \
     && $HOME/.cargo/bin/rustup default stable \
     && $HOME/.cargo/bin/rustc --version
 
-RUN pip install torch==1.13.1+cpu torchvision==0.14.1+cpu torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cpu
+RUN pip install torch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1
 
 # ENV PATH ~/.cargo/bin:$PATH
 WORKDIR /app
@@ -35,7 +35,7 @@ RUN apt-get update \
     && tar -xf /bin/grpcurl_1.8.7_linux_x86_64.tar.gz -C /bin \
     && rm -rf /bin/grpcurl_1.8.7_linux_x86_64.tar.gz
 
-RUN pip install torch==1.13.1+cpu torchvision==0.14.1+cpu torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cpu
+RUN pip install torch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1
 
 ENV LIBTORCH=/usr/local/lib/python3.8/site-packages/torch
 ENV DYLD_LIBRARY_PATH=${LIBTORCH}/lib 
