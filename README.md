@@ -33,6 +33,7 @@ pip install torch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1
 export LIBTORCH=$(python3 -c 'import torch; from pathlib import Path; print(Path(torch.__file__).parent)')
 export DYLD_LIBRARY_PATH=${LIBTORCH}/lib
 export LD_LIBRARY_PATH=${LIBTORCH}/lib:$LD_LIBRARY_PATH
+export LIBTORCH_CXX11_ABI=0
 ```
 ![m2-cargo-build-issue](/docs/m2-cargo-build-issue.png)
 
