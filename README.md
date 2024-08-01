@@ -121,6 +121,13 @@ print('--- PyTorch代码测试（在GPU上测试PyTorch代码） ---')
 print(torch.rand(3,3).cuda())
 ```
 
+### OnnxRuntime
+```bash
+wget -O  onnxruntime-arm.tgz  https://github.com/microsoft/onnxruntime/releases/download/v1.18.1/onnxruntime-osx-arm64-1.18.1.tgz
+tar -zxvf onnxruntime-arm.tgz
+export ORT_DYLIB_PATH=......../onnxruntime-osx-arm64-1.18.1/lib/libonnxruntime.dylib
+```
+
 **Reference**
 
 - [pytorch locally](https://pytorch.org/get-started/locally/)
@@ -146,3 +153,6 @@ print(torch.rand(3,3).cuda())
 
 - [Compile for arm64 raspberry pi](https://github.com/LaurentMazare/tch-rs/issues/498)
 - [Fixing the “GH001: Large files detected. You may want to try Git Large File Storage.”](https://marcosantonocito.medium.com/fixing-the-gh001-large-files-detected-you-may-want-to-try-git-large-file-storage-43336b983272)
+
+**onnx runtime reference**
+- [onnx runtime release list](https://github.com/microsoft/onnxruntime/releases?page=1)
